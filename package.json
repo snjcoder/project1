@@ -9,6 +9,7 @@
   "author": "Neetha",
   "license": "ISC",
   "dependencies": {
+    "document": "^0.4.7",
     "express": "^4.17.3",
     "readline-sync": "^1.4.10"
   }
