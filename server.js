@@ -1,7 +1,7 @@
 const express = require("express");
 const app = express();
-// const fs = require("fs");
-// const document = require("document");
+const userGuess = ["a","b","c","d","e","f","g","h","i","j","k","l","m","n","o","p","q","r","s","t","u","v","w","x","y","z"];
+
 const PORT = 7000;
 
 app.listen(PORT, function () {
@@ -9,7 +9,8 @@ app.listen(PORT, function () {
 });
 
 app.get("/startGame", (req, res) => {
-  res.send({ Hangman: "Game" });
+  res.send( "Welcome to the Hangman Game, Please enjoy the Game");
+
 });
 let myArray = [
   "otter",
@@ -24,20 +25,47 @@ let myArray = [
   "seal",
   "sea mink",
 ];
-var generateUnderscore = () => {
-  for (var i = 0; i < myArray.length; i++) {
-    underScore.push("_");
-    console.log("generateUnderscore is", generateUnderscore);
-    return underScore;
-  }
-};
+let randomItem
 function randomSelect() {
-  var randomItem = myArray[Math.floor(Math.random() * myArray.length)];
+   randomItem = myArray[Math.floor(Math.random() * myArray.length)];
   console.log("randomItem is", randomItem);
   return randomItem;
 }
-randomSelect();
+const string = randomItem;
 
-app.get("/guessing", (req, res) => {
-  res.send({ randomItem: "Game" });
-});
+const usingSplit = string.split(" ");
+const usingSpread = [...string];
+const usingArrayFrom = myArray.from(string);
+const usingObjectAssign = Object.assign([], string);
+
+console.log("usingSplit", usingSplit)
+console.log("usingSpread", usingSpread)
+console.log("usingArrayFrom", usingArrayFrom)
+console.log ("usingObjectAssign", usingObjectAssign);
+
+let generateUnderscore = () => {
+  let underScore = []
+  for (let i = 0; i < randomItem.length; i++) {
+   let u = '_';
+    underScore.push(u);
+   }
+    console.log("generateUnderscore is", underScore);
+    return underScore;
+  }
+
+randomSelect();
+generateUnderscore(randomItem);
+// app.get("/guessing", (req, res) => {
+  
+//   if(userGuess === randomItem){
+//     wins++;
+// }else{
+//     guesses--;
+// }
+
+// if(guesses = 0){
+//     losses++
+// }
+// res.send({ randomItem: "Game" });
+// });
+
