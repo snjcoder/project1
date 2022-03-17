@@ -1,4 +1,5 @@
 const express = require("express");
+const { randomSelect, guess } = require("./project1");
 const app = express();
 
 const PORT = 7000;
@@ -10,8 +11,9 @@ app.listen(PORT, function () {
 // CODE FOR STARTING THE GAME
 
 app.get("/startGame", (req, res) => {
-  let score = 0;
-  res.send(`Welcome to the Hangman Game: ${score}`);
+ 
+  let randomWord = randomSelect()
+  res.send(`Welcome to the Hangman Game: Here is your First Word ${randomWord}`);
 
 }); 
 
@@ -23,9 +25,17 @@ app.get("/score", (req, res) => {
 // CODE FOR HANDLING A GUESS
 
 app.get("/enterGuess", (req, res) => {
+let userGuess = req.query.guess
+let response = guess(userGuess)
+res.send(response);
+ });
 
-  
-  res.send({ randomItem: "Game" });
+  // END THE GAME AFTER ALL GUESS
+
+app.get("/gameOver", (req, res) => {
+let letter = req.query.endGame
+let response = endGame(letter)
+  res.send(response);
  });
 
  

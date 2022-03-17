@@ -1,17 +1,43 @@
-<!DOCTYPE html>
-<html lang="en">
+<html>
+
 <head>
-    <meta charset="UTF-8">
-    <meta http-equiv="X-UA-Compatible" content="IE=edge"/>
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <link rel = "stylesheet" href="style.css" />
-    <script defer src ="script.js"></script>
-    <title>Hangman Game</title>
+  <title>Hangman Game</title>
+  <style type="text/css">
+    #B1 {
+      background-color: #4CAF50;
+      color: white;
+      font-size: 24px;
+    }
+    #box2 {
+      width: 350px;
+      height: 350px;
+      padding: 10px;
+      background-color: blue;
+      text-align: center;
+    }
+  </style>
 </head>
+
 <body>
-    <div class ="wrapper">
-        <h1>Hangman Game</h1>
-        <h3>Choose the  </h3>
+  <div id="container" style="width:100%;">
+    <div id="left" style="float:left;width:50%;">
+      <div id="newgame">
+        <button onclick="newGame()" id="B1">New Game</button>
+        <br>
+        <br>
+      </div>
+      <!--<div id="newgame1"></div>-->
+      <div id="box1"></div>
+      <div>
+        <p id="placeforword"></p>
+      </div>
+      <div id="box2">
+        <h1>Letters u Guessed</h1>
+      </div>
     </div>
-</body>
-</html>
+    <div id="right" style="float:right;width:50%;">
+      <div>
+        <canvas id="stage" width="643" height="643" style="border:5px solid #000000;"></canvas>
+      </div>
+    </div>
+  </div>
