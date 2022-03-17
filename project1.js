@@ -1,87 +1,85 @@
-let randomItem;
-let underScore = [];
-let wordclass = require("./word.js");
-let inquirer = require("inquirer");
-let guesses_left = 10;
-let game_over = false;
-let letters_guessed = new Set();
-let word = new wordclass();
+let prjRandomItem;
+let prjUnderScore = [];
+let prjGuessesLeft = 6;
+let prjLettersGuessed = new Set();
 
-let letters_left = word.letters.length;
-let myArray = [
-  "otter",
-  "hippo",
-  "whale",
-  "dolphin",
-  "shark",
-  "polar bear",
-  "platypus",
-  "walrus",
-  "killer whale",
-  "seal",
-  "sea mink",
+let prjMyWords = [
+  'otter',
+  'hippo',
+  'whale',
+  'dolphin',
+  'shark',
+  'polar bear',
+  'platypus',
+  'walrus',
+  'killer whale',
+  'seal',
+  'sea mink',
 ];
 
 function randomSelect() {
-  randomItem = myArray[Math.floor(Math.random() * myArray.length)];
-  console.log("randomItem is", randomItem);
+  let randomIndex = Math.floor(Math.random() * prjMyWords.length);
+  prjRandomItem = prjMyWords[randomIndex];
+  console.log('prjRandomItem is', prjRandomItem);
   let underScore = generateUnderscore();
 
   return underScore;
 }
 
 let generateUnderscore = () => {
-  for (let i = 0; i < randomItem.length; i++) {
-    let u = "_";
-    underScore.push(u);
+  prjUnderScore = [];
+  for (let i = 0; i < prjRandomItem.length; i++) {
+    let u = '_';
+    prjUnderScore.push(u);
   }
-  console.log("generateUnderscore is", underScore);
-  return underScore;
+  console.log('prjUnderScore is', prjUnderScore);
+  return prjUnderScore;
 };
 
+/**
+ * Check if the given guess:
+ *  - has not been used before
+ *  - is a single letter
+ * 
+ * @param {*} letter 
+ * @returns NULL if not used & is single letter, otherwise return message string
+ */
+function validateGuess(letter) {
+  if (letter.length === 1) {
+    if (!prjLettersGuessed.has(letter)) {
+      prjLettersGuessed.add(letter);
+      return null;
+    } else {
+      return 'Letter has already been guessed!';
+    }
+  } else {
+    return 'You can only guess one letter at a time!';
+  }
+}
+
 function guess(userGuess) {
-  let matches = randomItem.matchAll(userGuess);
+  let validResponse = validateGuess(userGuess);
+  if (validResponse !== null) {
+    return validResponse;
+  }
+  let matches = prjRandomItem.matchAll(userGuess);
   let found = false;
   for (let match of matches) {
-    underScore[match.index] = userGuess;
+    prjUnderScore[match.index] = userGuess;
     found = true;
   }
   if (found) {
-    return `You Guessed the correct letter ${underScore}`;
-  } else {
-    return `You Guessed the incorrect letter ${underScore}`;
-  }
-  function compare(letter) {
-    if (letter.length === 1) {
-      if (!letters_guessed.has(letter)) {
-        letters_guessed.add(letter);
-      } else {
-        console.log("Letter has already been guessed!\n");
-        return;
-      }
-      let num_correct = word.checkGuess(letter);
-      console.log(num_correct);
-      if (num_correct > 0) {
-        console.log("Correct!\n");
-        letters_left -= num_correct;
-      } else {
-        guesses_left--;
-        console.log("Incorrect!  " + guesses_left + " guesses remaining\n");
-      }
-
-      if (letters_left === 0) {
-        console.log("You win!");
-        word.showLetters();
-        game_over = true;
-      }
-
-      if (guesses_left === 0) {
-        console.log("You lose!");
-        console.log("Word was " + word.word);
-        game_over = true;
-      }
+    if (prjUnderScore.includes('_')) {
+      return `You Guessed the correct letter ${prjUnderScore}.  You have ${prjGuessesLeft} strikes left.`;
     } else {
-      console.log("You can only guess one letter at a time!\n");
+      return `You guessed it!!! ${prjUnderScore}. YOU WIN!!!`;
+    }
+  } else {
+    prjGuessesLeft = prjGuessesLeft - 1;
+    if (prjGuessesLeft <= 0) {
+      return `You lose!  ${prjUnderScore}.  The word was ${prjRandomItem}.`;
+    } else {
+      return `You guessed the incorrect letter. You have ${prjGuessesLeft} strikes left.  ${prjUnderScore}`;
     }
   }
 }
