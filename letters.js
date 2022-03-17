@@ -1,25 +1,20 @@
-function letter(letter){
-    this.letter = letter;
-    this.guessed = false;
 
-    //How to display each letter
-    this.getChar = function(){
-        if(this.guessed === false){
-            return "_";
-        }
-        else{
-            return this.letter;
-        }
-    }
-    
-    this.checkGuess = function(guess){
-        if(guess === this.letter){
-            this.guessed = true;
-            return true;
-        }
-        else{
-            return false;
-        }
-    }
+//How to display each letter
+function getChar() {
+  if (guessed === false) {
+    return '_';
+  } else {
+    return letter;
+  }
 }
-module.exports = {getChar,checkGuess}
+
+function checkGuess(guess) {
+  if (guess === letter) {
+    guessed = true;
+    return true;
+  } else {
+    return false;
+  }
+}
+
+module.exports = { getChar, checkGuess };

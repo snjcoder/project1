@@ -11,31 +11,29 @@ app.listen(PORT, function () {
 // CODE FOR STARTING THE GAME
 
 app.get("/startGame", (req, res) => {
- 
-  let randomWord = randomSelect()
-  res.send(`Welcome to the Hangman Game: Here is your First Word ${randomWord}`);
-
-}); 
+  let randomWord = randomSelect();
+  res.send(
+    `Welcome to the Hangman Game: Here is your First Word ${randomWord}`
+  );
+});
 
 app.get("/score", (req, res) => {
   let score = 0;
-  res.send(`the score is: ${score}`)
+  res.send(`the score is: ${score}`);
 });
 
 // CODE FOR HANDLING A GUESS
 
 app.get("/enterGuess", (req, res) => {
-let userGuess = req.query.guess
-let response = guess(userGuess)
-res.send(response);
- });
+  let userGuess = req.query.guess;
+  let response = guess(userGuess);
+  res.send(response);
+});
 
-  // END THE GAME AFTER ALL GUESS
+// END THE GAME AFTER ALL GUESS
 
 app.get("/gameOver", (req, res) => {
-let letter = req.query.endGame
-let response = endGame(letter)
+  let letter = req.query.endGame;
+  let response = endGame(letter);
   res.send(response);
- });
-
- 
+});
