@@ -1,6 +1,6 @@
 let RandomItem;
 let UnderScore = [];
-let GuessesLeft = 9;
+let GuessesLeft = 10;
 let LettersGuessed = new Set();
 
 let MyWords = [
@@ -63,23 +63,23 @@ let levels = [
   ` --------\n   
     |      |\n
     0      |\n
-   /|\\    |\n
+   /|\\     |\n
     |      |\n
     |      |\n`,
 
   ` --------\n   
     |      |\n
     0      |\n
-   /|\\    |\n
+   /|\\     |\n
     |      |\n
-  \\|      |\n`,
+   \\|      |\n`,
 
   ` --------\n   
     |      |\n
     0      |\n
-   /|\\    |\n
+   /|\\     |\n
     |      |\n
-  \\|/     |\n`,
+   \\|/     |\n`,
 ];
 
 console.log(levels);
@@ -111,7 +111,7 @@ let generateUnderscore = () => {
  * @param {*} letter
  * @returns NULL if not used & is single letter, otherwise return message string
  */
- 
+
 function validateGuess(letter) {
   if (letter.length === 1) {
     if (!LettersGuessed.has(letter)) {
@@ -149,7 +149,7 @@ function guess(userGuess) {
     if (GuessesLeft <= 0) {
       return `You lose!  ${UnderScore}.  The word was ${RandomItem}.`;
     } else {
-      console.log(GuessesLeft,levels[GuessesLeft-1])
+      console.log(GuessesLeft, levels[GuessesLeft - 1]);
       return `You guessed the incorrect letter. You have ${GuessesLeft} strikes left.  ${UnderScore}.\n${
         levels[GuessesLeft - 1]
       }`;
