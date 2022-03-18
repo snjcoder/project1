@@ -1,59 +1,127 @@
-let prjRandomItem;
-let prjUnderScore = [];
-let prjGuessesLeft = 6;
-let prjLettersGuessed = new Set();
+let RandomItem;
+let UnderScore = [];
+let GuessesLeft = 9;
+let LettersGuessed = new Set();
 
-let prjMyWords = [
-  'otter',
-  'hippo',
-  'whale',
-  'dolphin',
-  'shark',
-  'polar bear',
-  'platypus',
-  'walrus',
-  'killer whale',
-  'seal',
-  'sea mink',
+let MyWords = [
+  "otter",
+  "hippo",
+  "whale",
+  "dolphin",
+  "shark",
+  "polar bear",
+  "platypus",
+  "walrus",
+  "killer whale",
+  "seal",
+  "sea mink",
 ];
 
+let levels = [
+  ` --------\n   
+    |      |\n
+           |\n
+           |\n
+           |\n
+           |\n`,
+
+  ` --------\n   
+    |      |\n
+    0      |\n
+           |\n
+           |\n
+           |\n`,
+
+  ` --------\n   
+    |      |\n
+    0      |\n
+    |      |\n
+           |\n
+           |\n`,
+
+  ` --------\n   
+    |      |\n
+    0      |\n
+    |      |\n
+    |      |\n
+           |\n`,
+
+  ` --------\n   
+    |      |\n
+    0      |\n
+    |      |\n
+    |      |\n
+    |      |\n`,
+
+  ` --------\n   
+    |      |\n
+    0      |\n
+   /|      |\n
+    |      |\n
+    |      |\n`,
+
+  ` --------\n   
+    |      |\n
+    0      |\n
+   /|\\    |\n
+    |      |\n
+    |      |\n`,
+
+  ` --------\n   
+    |      |\n
+    0      |\n
+   /|\\    |\n
+    |      |\n
+  \\|      |\n`,
+
+  ` --------\n   
+    |      |\n
+    0      |\n
+   /|\\    |\n
+    |      |\n
+  \\|/     |\n`,
+];
+
+console.log(levels);
+
 function randomSelect() {
-  let randomIndex = Math.floor(Math.random() * prjMyWords.length);
-  prjRandomItem = prjMyWords[randomIndex];
-  console.log('prjRandomItem is', prjRandomItem);
+  let randomIndex = Math.floor(Math.random() * MyWords.length);
+  RandomItem = MyWords[randomIndex];
+  console.log("RandomItem is", RandomItem);
   let underScore = generateUnderscore();
 
   return underScore;
 }
 
 let generateUnderscore = () => {
-  prjUnderScore = [];
-  for (let i = 0; i < prjRandomItem.length; i++) {
-    let u = '_';
-    prjUnderScore.push(u);
+  UnderScore = [];
+  for (let i = 0; i < RandomItem.length; i++) {
+    let u = "_";
+    UnderScore.push(u);
   }
-  console.log('prjUnderScore is', prjUnderScore);
-  return prjUnderScore;
+  console.log("UnderScore is", UnderScore);
+  return UnderScore;
 };
 
 /**
  * Check if the given guess:
  *  - has not been used before
  *  - is a single letter
- * 
- * @param {*} letter 
+ *
+ * @param {*} letter
  * @returns NULL if not used & is single letter, otherwise return message string
  */
+ 
 function validateGuess(letter) {
   if (letter.length === 1) {
-    if (!prjLettersGuessed.has(letter)) {
-      prjLettersGuessed.add(letter);
+    if (!LettersGuessed.has(letter)) {
+      LettersGuessed.add(letter);
       return null;
     } else {
-      return 'Letter has already been guessed!';
+      return "Letter has already been guessed!";
     }
   } else {
-    return 'You can only guess one letter at a time!';
+    return "You can only guess one letter at a time!";
   }
 }
 
@@ -62,24 +130,29 @@ function guess(userGuess) {
   if (validResponse !== null) {
     return validResponse;
   }
-  let matches = prjRandomItem.matchAll(userGuess);
+  let matches = RandomItem.matchAll(userGuess);
   let found = false;
   for (let match of matches) {
-    prjUnderScore[match.index] = userGuess;
+    UnderScore[match.index] = userGuess;
     found = true;
   }
   if (found) {
-    if (prjUnderScore.includes('_')) {
-      return `You Guessed the correct letter ${prjUnderScore}.  You have ${prjGuessesLeft} strikes left.`;
+    if (UnderScore.includes("_")) {
+      return `You Guessed the correct letter ${UnderScore}.  You have ${GuessesLeft} strikes left.\n${
+        levels[GuessesLeft - 1]
+      }`;
     } else {
-      return `You guessed it!!! ${prjUnderScore}. YOU WIN!!!`;
+      return `You guessed it!!! ${UnderScore}. YOU WIN!!!`;
     }
   } else {
-    prjGuessesLeft = prjGuessesLeft - 1;
-    if (prjGuessesLeft <= 0) {
-      return `You lose!  ${prjUnderScore}.  The word was ${prjRandomItem}.`;
+    GuessesLeft = GuessesLeft - 1;
+    if (GuessesLeft <= 0) {
+      return `You lose!  ${UnderScore}.  The word was ${RandomItem}.`;
     } else {
-      return `You guessed the incorrect letter. You have ${prjGuessesLeft} strikes left.  ${prjUnderScore}`;
+      console.log(GuessesLeft,levels[GuessesLeft-1])
+      return `You guessed the incorrect letter. You have ${GuessesLeft} strikes left.  ${UnderScore}.\n${
+        levels[GuessesLeft - 1]
+      }`;
     }
   }
 }
