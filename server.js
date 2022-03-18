@@ -16,7 +16,7 @@ app.get('/startGame', (req, res) => {
   theScore = 0;
   let randomWord = randomSelect();
   res.send(
-    `Welcome to the Hangman Game: Here is your First Word ${randomWord}`
+    `Welcome to the Hangman Game: Here is your First Word ${randomWord}: curl http://localhost:7000/startGame`
   );
 });
 
@@ -32,10 +32,3 @@ app.get('/enterGuess', (req, res) => {
   res.send(response);
 });
 
-// END THE GAME AFTER ALL GUESS
-
-app.get('/gameOver', (req, res) => {
-  let letter = req.query.endGame;
-  let response = endGame(letter);
-  res.send(response);
-});
