@@ -16,7 +16,7 @@ app.get('/startGame', (req, res) => {
   theScore = 0;
   let randomWord = randomSelect();
   res.send(
-    `Welcome to the Hangman Game: Here is your First Word ${randomWord}: curl http://localhost:7000/startGame`
+    `Welcome to the Hangman Game: Here is your First Word ${randomWord}: "curl http://localhost:7000/startGame"`
   );
 });
 
