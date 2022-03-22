@@ -3,6 +3,10 @@ let UnderScore = [];
 let GuessesLeft = 10;
 let LettersGuessed = new Set();
 
+const gameState = {
+  theScore: 0,
+  name: "",
+};
 let MyWords = [
   "otter",
   "hippo",
@@ -142,11 +146,14 @@ function guess(userGuess) {
         levels[GuessesLeft - 1]
       }`;
     } else {
-      return `You guessed it!!! ${UnderScore}. YOU WIN!!!`;
+      gameState.theScore = gameState.theScore + 1; 
+      return `You guessed it!!! ${UnderScore}. YOU WIN!!!,${theScore} This is score`;
+      
     }
   } else {
     GuessesLeft = GuessesLeft - 1;
     if (GuessesLeft <= 0) {
+      gameState.theScore = gameState.theScore - 1;
       return `You lose!  ${UnderScore}.  The word was ${RandomItem}.`;
     } else {
       console.log(GuessesLeft, levels[GuessesLeft - 1]);
@@ -157,4 +164,4 @@ function guess(userGuess) {
   }
 }
 
-module.exports = { guess, randomSelect };
+module.exports = { guess, randomSelect,gameState };
