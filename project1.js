@@ -13,12 +13,12 @@ let MyWords = [
   "whale",
   "dolphin",
   "shark",
-  "polar bear",
+  "polarbear",
   "platypus",
   "walrus",
-  "killer whale",
+  "killerwhale",
   "seal",
-  "sea mink",
+  "seamink",
 ];
 
 let levels = [
@@ -146,15 +146,14 @@ function guess(userGuess) {
         levels[GuessesLeft - 1]
       }`;
     } else {
-      gameState.theScore = gameState.theScore + 1; 
-      return `You guessed it!!! ${UnderScore}. YOU WIN!!!,${theScore} This is score`;
+    
+      return `You guessed it!!! ${UnderScore}. YOU WIN!!!. ${gameState.name}`;
       
     }
   } else {
     GuessesLeft = GuessesLeft - 1;
     if (GuessesLeft <= 0) {
-      gameState.theScore = gameState.theScore - 1;
-      return `You lose!  ${UnderScore}.  The word was ${RandomItem}.`;
+      return `You lose!  ${UnderScore}.  The word was ${RandomItem}.${gameState.name}`;
     } else {
       console.log(GuessesLeft, levels[GuessesLeft - 1]);
       return `You guessed the incorrect letter. You have ${GuessesLeft} strikes left.  ${UnderScore}.\n${

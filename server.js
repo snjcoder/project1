@@ -9,7 +9,7 @@ app.listen(PORT, function () {
   console.log(`Listening on port ${PORT}`);
 });
 
-// PLAYER NAME curl link "curl http://localhost:7000/playerName?name="
+// PLAYER NAME curl link curl http://localhost:7000/playerName?name="
 
 app.get("/playerName", (req, res) => {
   let name = req.query.name;
