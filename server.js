@@ -9,16 +9,16 @@ app.listen(PORT, function () {
   console.log(`Listening on port ${PORT}`);
 });
 
-// PLAYER NAME curl link curl http://localhost:7000/playerName?name="
 
-app.get("/playerName", (req, res) => {
-  let name = req.query.name;
-  gameState.name = name;
-  res.send(
-    `Hello ${name}, Welcome to the Hangman Game : "curl http://localhost:7000/startGame"`
-  );
+// Link for Player Name curl http://localhost:7000/playerName -H 'Content-Type: application/json' -X POST -d '{"name":"bob", "emailId":"blah@email.com"}'
+
+app.post('/playerName', (req,res)=>{
+  const data = req.body
+  const name = data.name
+  const emailId = data.emailId
+  gameState.name = name
+  res.send(`Hello, ${name}, your email Id is ${emailId}`);
 });
-
 
 // CODE FOR STARTING THE GAME
 
